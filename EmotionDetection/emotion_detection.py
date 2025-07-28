@@ -7,7 +7,7 @@ def emotion_detector(text_to_analyze):  # Define a function named sentiment_anal
     header = {"grpc-metadata-mm-model-id": "emotion_aggregated-workflow_lang_en_stock"}  # Set the headers required for the API request
     response = requests.post(url, json = myobj, headers=header)  # Send a POST request to the API with the text and headers
 
-     # Parsing the JSON response from the API
+    # Parsing the JSON response from the API
     formatted_response = json.loads(response.text)
 
     """error handling"""
