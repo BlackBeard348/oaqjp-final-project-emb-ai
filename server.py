@@ -8,7 +8,7 @@ def sent_emotion():
     # Retrieve the text to analyze from the request arguments
     text_to_analyze = request.args.get('textToAnalyze')
 
-    # Pass the text to the sentiment_analyzer function and store the response
+    # Pass the text to the sentiment_analyzer function (emotion_detection) and store the response
     response = emotion_detector(text_to_analyze)
 
     # Extract the label and score from the response
@@ -17,23 +17,14 @@ def sent_emotion():
     fear_score = response.get('fear')
     joy_score = response.get('joy') 
     sadness_score = response.get('sadness') 
-
-    # Identify dominant emotion
-    emotions = {
-        'anger': anger_score,
-        'disgust': disgust_score,
-        'fear': fear_score,
-        'joy': joy_score,
-        'sadness': sadness_score
-    }
-    dominant_emotion = max(emotions, key=emotions.get)
-    dominant_score = emotions[dominant_emotion]
+    dominant_score = response.get('dominant_emotion') 
 
     if dominant_score is None:
+        # Return a string if the value is None
         return "Invalid input! Try again."
     else:
         # Return a formatted string with the sentiment label and score
-        return (f"For the given statement, the system response is 'anger': {response['anger']}, 'disgust': {response['disgust']}, 'fear': {response['fear']}, 'joy': {response['joy']}, 'sadness': {response['sadness']}. The dominant emotion is {dominant_emotion}"
+        return (f"For the given statement, the system response is 'anger': {response['anger']}, 'disgust': {response['disgust']}, 'fear': {response['fear']}, 'joy': {response['joy']}, 'sadness': {response['sadness']}. The dominant emotion is {response['dominant_emotion']}"
         )
     
 #This function initiates the rendering of the main applicationpage over the Flask channel
