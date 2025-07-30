@@ -29,11 +29,13 @@ def sent_emotion():
     dominant_emotion = max(emotions, key=emotions.get)
     dominant_score = emotions[dominant_emotion]
 
-    # Return a formatted string with the sentiment label and score
-    return (f"For the given statement, the system response is 'anger': {response['anger']}, 'disgust': {response['disgust']}, 'fear': {response['fear']}, 'joy': {response['joy']}, 'sadness': {response['sadness']}. The dominant emotion is {dominant_emotion}"
-    )
+    if dominant_score is None:
+        return "Invalid input! Try again."
+    else:
+        # Return a formatted string with the sentiment label and score
+        return (f"For the given statement, the system response is 'anger': {response['anger']}, 'disgust': {response['disgust']}, 'fear': {response['fear']}, 'joy': {response['joy']}, 'sadness': {response['sadness']}. The dominant emotion is {dominant_emotion}"
+        )
     
-
 #This function initiates the rendering of the main applicationpage over the Flask channel
 @app.route("/")
 def render_index_page():
